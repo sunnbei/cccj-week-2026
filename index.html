@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCCJ WEEK 2026 ｜ 選ばれる日本、挑戦する企業家</title>
+<style>
+:root{
+  --navy:#1c2942; --navy2:#26334D; --vermilion:#E8552D; --vermilion2:#ff6a3d;
+  --gold:#C9A24B; --gold2:#e4c27e; --lav:#E1D4E8; --pink:#F2DBDE; --sky:#9FBED0;
+  --cream:#F7F3EC; --ink:#3a4252; --line:#e7e1d4;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;
+  color:var(--ink); background:var(--cream); line-height:1.9; font-size:16px;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+h2,h3,h4{color:var(--navy);font-weight:800;letter-spacing:.02em;}
+a{color:var(--vermilion);text-decoration:none;}
+img{max-width:100%;display:block;}
+
+/* ===== scroll progress ===== */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;
+  background:linear-gradient(90deg,var(--vermilion),var(--gold));box-shadow:0 0 12px rgba(232,85,45,.6);}
+
+/* ===== nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:150;display:flex;justify-content:space-between;align-items:center;
+  padding:13px 28px;transition:.4s var(--ease);
+  background:rgba(255,255,255,.92);backdrop-filter:blur(14px);box-shadow:0 2px 12px rgba(28,41,66,.06);}
+nav.solid{background:rgba(255,255,255,.96);box-shadow:0 6px 24px rgba(28,41,66,.1);padding:11px 28px;}
+nav .brand{display:flex;align-items:center;}
+nav .brand img{height:32px;width:auto;transition:.4s var(--ease);}
+nav.solid .brand img{height:30px;}
+nav .links{display:flex;gap:26px;font-size:13px;}
+nav .links a{color:var(--navy2);position:relative;letter-spacing:.05em;opacity:.85;}
+nav .links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:2px;background:var(--vermilion);transition:.3s var(--ease);}
+nav .links a:hover{opacity:1;} nav .links a:hover::after{width:100%;}
+@media(max-width:820px){nav .links{display:none;}}
+
+/* ===== hero ===== */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+.hero .bg{position:absolute;inset:-8% 0;background:url("assets/hero.png") center/cover no-repeat;will-change:transform;}
+.hero .veil{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 30%,rgba(247,243,236,.25),rgba(247,243,236,.7) 70%,var(--cream));}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;mix-blend-mode:multiply;animation:float 14s var(--ease) infinite;}
+.blob.b1{width:420px;height:420px;background:radial-gradient(circle,var(--lav),transparent 70%);top:6%;left:-6%;}
+.blob.b2{width:380px;height:380px;background:radial-gradient(circle,var(--pink),transparent 70%);bottom:8%;right:-4%;animation-delay:-5s;}
+.blob.b3{width:300px;height:300px;background:radial-gradient(circle,var(--sky),transparent 70%);top:40%;right:20%;animation-delay:-9s;}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(40px,-30px) scale(1.08);}66%{transform:translate(-30px,25px) scale(.95);}}
+
+.hero-inner{position:relative;z-index:3;padding:90px 24px;}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.4em;color:var(--navy);
+  border:1px solid var(--gold);border-radius:999px;padding:9px 24px;background:rgba(255,255,255,.5);
+  opacity:0;transform:translateY(16px);animation:rise .9s var(--ease) .2s forwards;}
+.kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--vermilion);animation:pulse 1.8s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,85,45,.5);}50%{box-shadow:0 0 0 7px rgba(232,85,45,0);}}
+.hero .year{font-size:clamp(48px,11vw,120px);font-weight:900;line-height:.95;letter-spacing:.01em;
+  background:linear-gradient(120deg,var(--vermilion),var(--gold) 80%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  opacity:0;transform:translateY(26px);animation:rise 1s var(--ease) .35s forwards;}
+.hero .ttl{font-size:clamp(40px,11vw,108px);font-weight:900;color:var(--navy);line-height:1;letter-spacing:.05em;
+  opacity:0;transform:translateY(26px);animation:rise 1s var(--ease) .5s forwards;}
+.hero .ttl .shine{position:relative;background:linear-gradient(100deg,var(--navy) 30%,#5a6b8a 50%,var(--navy) 70%);
+  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite;}
+@keyframes shine{to{background-position:-200% 0;}}
+.hero .en{font-size:13px;letter-spacing:.36em;color:var(--navy2);margin-top:18px;opacity:0;animation:fade 1s ease .8s forwards;}
+.hero .theme{margin-top:34px;font-size:clamp(18px,3.6vw,30px);font-weight:800;color:var(--navy);display:inline-block;
+  padding:14px 0;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);
+  opacity:0;transform:scale(.96);animation:rise 1s var(--ease) .95s forwards;}
+.hero .meta{margin-top:26px;font-size:15px;color:var(--navy2);letter-spacing:.05em;opacity:0;animation:fade 1s ease 1.15s forwards;}
+.hero .meta b{color:var(--vermilion);font-size:18px;}
+.scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;font-size:10px;letter-spacing:.3em;color:var(--navy2);opacity:.7;}
+.scrollcue .line{width:1px;height:42px;margin:8px auto 0;background:linear-gradient(var(--vermilion),transparent);position:relative;overflow:hidden;}
+.scrollcue .line::after{content:"";position:absolute;top:-42px;left:0;width:1px;height:42px;background:var(--vermilion);animation:cue 1.8s ease-in-out infinite;}
+@keyframes cue{to{top:42px;}}
+@keyframes rise{to{opacity:1;transform:none;}}
+@keyframes fade{to{opacity:1;}}
+
+/* ===== reveal ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:1s var(--ease);}
+.reveal.in{opacity:1;transform:none;}
+.reveal.d1{transition-delay:.12s;}.reveal.d2{transition-delay:.24s;}.reveal.d3{transition-delay:.36s;}
+.reveal.left{transform:translateX(-50px);}.reveal.left.in{transform:none;}
+.reveal.zoom{transform:scale(.92);}.reveal.zoom.in{transform:none;}
+
+/* ===== sections ===== */
+section{padding:110px 0;position:relative;}
+section.alt{background:#fff;}
+.eyebrow{font-size:12px;letter-spacing:.4em;color:var(--vermilion);font-weight:800;text-align:center;margin-bottom:12px;}
+.sec-ttl{font-size:clamp(28px,5vw,46px);text-align:center;line-height:1.2;}
+.sec-ttl .g{background:linear-gradient(120deg,var(--vermilion),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.sec-ttl::after{content:"";display:block;width:60px;height:4px;background:linear-gradient(90deg,var(--vermilion),var(--gold));margin:20px auto 0;border-radius:3px;}
+.sec-sub{text-align:center;color:#9a9486;font-size:14px;letter-spacing:.12em;margin:14px 0 56px;}
+.lead p{margin-bottom:1.5em;font-size:16px;}.lead p:last-child{margin-bottom:0;}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.pillar{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:38px 30px;position:relative;overflow:hidden;
+  transition:.5s var(--ease);}
+.pillar::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--vermilion),var(--gold));transform:scaleX(0);transform-origin:left;transition:.6s var(--ease);}
+.pillar:hover{transform:translateY(-10px);box-shadow:0 26px 50px rgba(28,41,66,.13);border-color:transparent;}
+.pillar:hover::before{transform:scaleX(1);}
+.pillar .no{font-size:44px;font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--gold);opacity:.5;}
+.pillar h3{font-size:23px;margin:12px 0 14px;}
+.pillar p{font-size:14.5px;color:var(--ink);}
+
+/* themes */
+.themes{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+.theme-card{display:flex;gap:18px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;transition:.45s var(--ease);}
+section.alt .theme-card{background:var(--cream);}
+.theme-card:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(28,41,66,.12);}
+.theme-card .ic{flex:0 0 50px;height:50px;border-radius:14px;background:linear-gradient(135deg,var(--vermilion),var(--gold));color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;box-shadow:0 8px 20px rgba(232,85,45,.3);}
+.theme-card h4{font-size:18px;margin-bottom:7px;}.theme-card p{font-size:14px;color:#6b6557;}
+
+/* program timeline */
+.timeline{position:relative;max-width:860px;margin:0 auto;padding-left:30px;}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--vermilion),var(--gold));}
+.tl-item{position:relative;padding:0 0 38px 34px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{content:"";position:absolute;left:-30px;top:4px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--vermilion);box-shadow:0 0 0 4px rgba(232,85,45,.12);}
+.tl-time{font-weight:800;color:var(--vermilion);font-size:14px;letter-spacing:.04em;}
+.tl-kind{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--navy);border-radius:6px;padding:3px 10px;margin-left:10px;letter-spacing:.06em;}
+.tl-body{font-size:16px;font-weight:700;color:var(--navy);margin-top:6px;}
+.tl-sp{font-size:13px;color:#8a8576;font-weight:400;margin-top:3px;}
+/* 同時並行セッション */
+.tl-parallel-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:var(--vermilion);
+  background:rgba(232,85,45,.08);border:1px dashed var(--vermilion);border-radius:6px;padding:3px 10px;margin-left:8px;letter-spacing:.06em;vertical-align:middle;}
+.tl-parallel-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--vermilion);animation:pulse 1.8s infinite;}
+.tl-parallel{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;}
+.tl-track{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative;transition:.4s var(--ease);}
+.tl-track::before{content:"";position:absolute;top:0;left:18px;right:18px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--vermilion),var(--gold));opacity:.6;}
+.tl-track:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(28,41,66,.1);border-color:transparent;}
+.tl-room{font-size:11px;font-weight:800;color:var(--vermilion);letter-spacing:.1em;margin-bottom:4px;}
+.tl-track .tl-body{font-size:15px;margin-top:2px;}
+@media(max-width:640px){
+  .tl-parallel{grid-template-columns:1fr;gap:16px;}
+}
+.note{text-align:center;font-size:12.5px;color:#9a9486;margin-top:18px;}
+
+/* overview */
+.ov{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;max-width:880px;margin:0 auto;}
+.ov th,.ov td{padding:17px 22px;border-bottom:1px solid var(--line);font-size:15px;text-align:left;}
+.ov th{background:var(--cream);width:210px;color:var(--navy);font-weight:800;}
+.ov tr:last-child th,.ov tr:last-child td{border-bottom:none;}
+
+/* sponsor */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.tier{border-radius:20px;padding:38px 28px 34px;text-align:center;border:1px solid var(--line);background:#fff;position:relative;overflow:hidden;transition:.5s var(--ease);}
+.tier::after{content:"";position:absolute;inset:0;background:radial-gradient(130% 80% at 50% -10%,rgba(201,162,75,.16),transparent 60%);opacity:0;transition:.5s;}
+.tier:hover{transform:translateY(-14px) scale(1.02);box-shadow:0 32px 60px rgba(28,41,66,.18);}
+.tier:hover::after{opacity:1;}
+.tier .ribbon{position:absolute;top:14px;right:-34px;transform:rotate(45deg);background:var(--vermilion);color:#fff;font-size:11px;font-weight:700;padding:4px 40px;letter-spacing:.1em;display:none;}
+.tier.dia{border-top:6px solid var(--gold);}.tier.dia .ribbon{display:block;}
+.tier.gold{border-top:6px solid #C7A24B;}.tier.sil{border-top:6px solid #9aa3ad;}
+.tier .cap{font-size:13px;letter-spacing:.22em;font-weight:800;}
+.tier.dia .cap{color:var(--gold);}.tier.gold .cap{color:#B8923C;}.tier.sil .cap{color:#7d8893;}
+.tier h3{font-size:26px;margin:5px 0 4px;}
+.tier .price{font-size:48px;font-weight:900;color:var(--navy);line-height:1;}
+.tier .price small{font-size:17px;font-weight:700;}
+.tier ul{list-style:none;text-align:left;margin-top:22px;font-size:14.5px;}
+.tier ul li{padding:11px 0;border-top:1px dashed var(--line);display:flex;justify-content:space-between;}
+.tier ul li b{color:var(--vermilion);font-size:17px;}
+
+/* total banner */
+.spon-sum{background:linear-gradient(125deg,var(--navy),#2f4063 60%,var(--navy));border-radius:20px;padding:16px 26px;margin:40px 0 0;
+  display:flex;align-items:stretch;position:relative;overflow:hidden;}
+.spon-sum::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(201,162,75,.18) 50%,transparent 70%);
+  background-size:250% 100%;animation:sheen 6s linear infinite;}
+@keyframes sheen{to{background-position:-150% 0;}}
+.spon-sum .sum-lbl{position:relative;z-index:1;flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;padding-right:28px;margin-right:8px;border-right:1px solid rgba(255,255,255,.2);}
+.spon-sum .sum-lbl .k{color:var(--gold2);font-size:12px;letter-spacing:.3em;font-weight:800;}
+.spon-sum .sum-lbl .j{color:#fff;font-size:16px;font-weight:800;margin-top:5px;}
+.spon-sum .stats{position:relative;z-index:1;flex:1;display:flex;}
+.stat{flex:1;color:#fff;padding:22px 12px;text-align:center;position:relative;}
+.stat + .stat::before{content:"";position:absolute;left:0;top:16%;height:68%;width:1px;background:rgba(255,255,255,.18);}
+.stat .big{font-size:42px;font-weight:900;color:#fff;line-height:1;}
+.stat .big span{color:var(--gold2);font-size:19px;}
+.stat .lbl{font-size:12px;letter-spacing:.08em;opacity:.78;margin-top:9px;}
+
+/* benefits */
+.ben{width:100%;border-collapse:collapse;margin-top:40px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:14px;}
+.ben th,.ben td{padding:15px 16px;border-bottom:1px solid var(--line);text-align:center;}
+.ben thead th{background:var(--navy);color:#fff;font-weight:700;letter-spacing:.04em;}
+.ben td:first-child,.ben th:first-child{text-align:left;background:var(--cream);font-weight:700;color:var(--navy);}
+.ben tbody tr{transition:.25s;}
+.ben tbody tr:hover{background:rgba(201,162,75,.07);}
+.ben tr:last-child td{border-bottom:none;}
+
+/* participation */
+.part{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;align-items:start;}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:36px;transition:.45s var(--ease);}
+.card:hover{box-shadow:0 24px 50px rgba(28,41,66,.1);}
+.card h3{font-size:20px;margin-bottom:18px;}
+.fee{font-size:52px;font-weight:900;line-height:1;background:linear-gradient(120deg,var(--vermilion),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.fee small{font-size:17px;color:var(--ink);font-weight:700;-webkit-text-fill-color:var(--ink);}
+.breakdown{list-style:none;}
+.breakdown li{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);font-size:15px;}
+.breakdown li:last-child{border-bottom:none;font-weight:800;}
+.breakdown li b{color:var(--navy);}
+.tag{display:inline-block;background:var(--cream);border:1px solid var(--gold);color:var(--navy);border-radius:8px;padding:5px 14px;font-size:13px;margin:5px 5px 0 0;}
+
+/* cta */
+.cta{background:linear-gradient(135deg,var(--navy),#2b3c5e);color:#fff;text-align:center;padding:100px 24px;position:relative;overflow:hidden;}
+.cta .blob{mix-blend-mode:screen;opacity:.4;}
+.cta .blob.c1{background:radial-gradient(circle,var(--vermilion),transparent 70%);width:420px;height:420px;top:-10%;left:5%;}
+.cta .blob.c2{background:radial-gradient(circle,var(--gold),transparent 70%);width:380px;height:380px;bottom:-12%;right:8%;animation-delay:-6s;}
+.cta h2{color:#fff;font-size:clamp(26px,5vw,40px);margin-bottom:16px;position:relative;}
+.cta p{opacity:.85;margin-bottom:30px;position:relative;}
+.cta .box{position:relative;display:inline-block;background:rgba(255,255,255,.07);border:1px solid var(--gold);border-radius:16px;padding:30px 44px;text-align:left;backdrop-filter:blur(6px);}
+.cta .box .row{font-size:15.5px;margin:8px 0;}
+.cta .box .row span{display:inline-block;width:160px;color:var(--gold2);letter-spacing:.08em;}
+.cta .box a{color:#fff;font-weight:800;}
+.btn{display:inline-flex;align-items:center;gap:10px;margin-top:30px;background:linear-gradient(120deg,var(--vermilion),#ff7a4d);color:#fff;font-weight:800;
+  padding:16px 40px;border-radius:999px;font-size:16px;position:relative;box-shadow:0 14px 34px rgba(232,85,45,.4);transition:.4s var(--ease);letter-spacing:.05em;}
+.btn:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(232,85,45,.55);}
+.btn .arw{transition:.3s;}.btn:hover .arw{transform:translateX(5px);}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:0 10px 24px rgba(232,85,45,.3);}
+
+/* ===== application form ===== */
+.appform{position:relative;max-width:620px;margin:0 auto;text-align:left;
+  background:rgba(255,255,255,.06);border:1px solid var(--gold);border-radius:20px;
+  padding:36px 38px;backdrop-filter:blur(8px);box-shadow:0 24px 60px rgba(10,16,30,.35);}
+.appform .fld{margin-bottom:22px;}
+.appform label{display:block;font-size:14px;font-weight:700;color:var(--gold2);letter-spacing:.06em;margin-bottom:9px;}
+.appform label .req{color:var(--vermilion2);margin-left:6px;font-size:12px;}
+.appform input[type=text],.appform input[type=email],.appform textarea{
+  width:100%;background:rgba(255,255,255,.95);border:1.5px solid transparent;border-radius:11px;
+  padding:13px 15px;font-size:15px;color:var(--ink);font-family:inherit;transition:.25s var(--ease);}
+.appform input::placeholder,.appform textarea::placeholder{color:#9aa3b2;}
+.appform input:focus,.appform textarea:focus{outline:none;border-color:var(--vermilion2);box-shadow:0 0 0 3px rgba(255,106,61,.28);}
+.appform textarea{min-height:100px;resize:vertical;}
+.appform .plans{display:grid;gap:10px;}
+.appform .plan{display:flex;align-items:center;gap:12px;cursor:pointer;
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(201,162,75,.45);border-radius:12px;padding:13px 16px;transition:.25s var(--ease);}
+.appform .plan:hover{background:rgba(255,255,255,.12);border-color:var(--gold);}
+.appform .plan input{accent-color:var(--vermilion);width:18px;height:18px;flex:0 0 auto;}
+.appform .plan.sel{background:rgba(232,85,45,.16);border-color:var(--vermilion2);box-shadow:0 0 0 2px rgba(255,106,61,.25) inset;}
+.appform .plan .pname{font-weight:800;color:#fff;font-size:15.5px;}
+.appform .plan .pprice{margin-left:auto;color:var(--gold2);font-weight:800;font-size:14px;}
+.appform .err{display:none;color:var(--vermilion2);font-size:12.5px;margin-top:7px;font-weight:600;}
+.appform .fld.invalid .err{display:block;}
+.appform .fld.invalid input,.appform .fld.invalid textarea{border-color:var(--vermilion2);}
+.appform .fld.invalid .plans{outline:1.5px solid var(--vermilion2);outline-offset:4px;border-radius:14px;}
+.appform .actions{text-align:center;margin-top:6px;}
+.appform .actions .btn{margin-top:8px;border:none;cursor:pointer;}
+.appform .alt{text-align:center;font-size:13px;opacity:.7;margin-top:18px;}
+.appform .alt a{color:var(--gold2);font-weight:700;}
+.form-done{text-align:center;padding:24px 10px;}
+.form-done .chk{width:62px;height:62px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--vermilion),var(--gold));font-size:30px;color:#fff;box-shadow:0 12px 30px rgba(232,85,45,.45);}
+.form-done h3{color:#fff;font-size:22px;margin-bottom:10px;}
+.form-done p{opacity:.85;}
+@media(max-width:560px){.appform{padding:28px 20px;}.appform .plan .pprice{font-size:13px;}}
+
+footer{background:#141d2e;color:#cfd4dd;text-align:center;padding:46px 24px;}
+footer img.logo{height:48px;width:auto;margin-bottom:18px;background:#fff;padding:11px 18px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);}
+footer .disc{margin-top:16px;font-size:11px;opacity:.45;}
+
+@media(max-width:820px){
+  .pillars,.themes,.tiers,.part{grid-template-columns:1fr;}
+  .spon-sum{flex-direction:column;}
+  .spon-sum .sum-lbl{border-right:none;border-bottom:1px solid rgba(255,255,255,.2);padding:6px 0 14px;margin:0 0 8px;text-align:center;}
+  .ben{display:block;overflow-x:auto;white-space:nowrap;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;}
+  .reveal{opacity:1;transform:none;}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav id="nav">
+  <div class="brand"><img src="assets/cccj_logo.png" alt="日本中華總商會"></div>
+  <div class="links">
+    <a href="#purpose">趣意</a>
+    <a href="#goals">目的</a>
+    <a href="#program">プログラム</a>
+    <a href="#sponsor">協賛</a>
+    <a href="#apply">申込</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="bg" id="heroBg"></div>
+  <div class="veil"></div>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="hero-inner">
+    <span class="kicker"><span class="dot"></span>CONVENTION&nbsp;&nbsp;2026.09.10</span>
+    <div class="year">2026</div>
+    <div class="ttl"><span class="shine">CCCJ&nbsp;WEEK</span></div>
+    <div class="en">CHINESE CHAMBER OF COMMERCE IN JAPAN</div>
+    <div class="theme">選ばれる日本、挑戦する企業家</div>
+    <div class="meta"><b>2026.9.10</b>（木）13:00–20:00　｜　ザ・プリンス パークタワー東京</div>
+  </div>
+  <div class="scrollcue">SCROLL<div class="line"></div></div>
+</header>
+
+<!-- 趣意 -->
+<section id="purpose">
+  <div class="wrap">
+    <div class="reveal"><div class="eyebrow">PURPOSE</div></div>
+    <h2 class="sec-ttl reveal d1">開催<span class="g">趣意</span></h2>
+    <div class="sec-sub reveal d1">会員の皆様へ</div>
+    <div class="lead" style="max-width:880px;margin:0 auto;">
+      <p class="reveal">世界情勢が急速に変化する今日においても、経済のグローバル化は引き続き進展しています。世界的不均衡、貧困、気候変動、技術革新を巡る国際競争など、多くの長期的な経済課題に直面する中、その解決にはグローバルな協働と持続可能な経済開発が不可欠です。特にアジア地域は今後の成長が最も期待される市場であり、日本企業が果たすべき役割は大きいと存じます。</p>
+      <p class="reveal">CCCJ＝日本中華總商会は、「日本」「中華」「商（ビジネス）」をキーワードに、在日華僑・華人企業と日本企業を会員とする事業成長のための交流プラットフォームです。世界の華僑企業が参加する「中華總商会」の中で唯一、現地の日本企業を賛助会員として迎え、「世界華商大会」の日本における窓口としての役割も担っております。</p>
+      <p class="reveal">この度、日本の経済社会が直面するグローバルな挑戦に対し具体的な解決策を見出し、豊かな将来の実現に向けて共に歩む機会として「2026 CCCJ WEEK」を開催いたします。「選ばれる日本、挑戦する企業家」を全体テーマに掲げ、日本とアジアの企業家を繋ぎ、地域価値と産業価値の双方を高めることを目指します。皆様の積極的なご参加を心よりお待ち申し上げております。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 目的 -->
+<section id="goals" class="alt">
+  <div class="wrap">
+    <div class="reveal"><div class="eyebrow">OBJECTIVES</div></div>
+    <h2 class="sec-ttl reveal d1">開催目的 — <span class="g">3つの柱</span></h2>
+    <div class="sec-sub reveal d1">未来の豊かな社会形成への貢献</div>
+    <div class="pillars">
+      <div class="pillar reveal d1"><div class="no">01</div><h3>選ばれる日本</h3><p>観光、文化、体験、都市機能、行政サービス、投資環境といった多角的な視点から、日本・東京・地域が世界から選ばれる理由を明確に示します。</p></div>
+      <div class="pillar reveal d2"><div class="no">02</div><h3>挑戦する企業家</h3><p>日本・中国・アジアの起業家が、AI、ロボット、製造、ディープテック等の分野で新たな産業を創出する力を示し、その挑戦を支援します。</p></div>
+      <div class="pillar reveal d3"><div class="no">03</div><h3>つなぐCCCJ</h3><p>在日華僑華人の起業家精神、国際ネットワーク、多文化を繋ぐ力を東京と日本の成長に接続し、グローバルなビジネス展開を推進します。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- テーマ -->
+<section id="themes">
+  <div class="wrap">
+    <div class="reveal"><div class="eyebrow">KEY THEMES</div></div>
+    <h2 class="sec-ttl reveal d1">議論を深める<span class="g">主要テーマ</span></h2>
+    <div class="sec-sub reveal d1"></div>
+    <div class="themes">
+      <div class="theme-card reveal left"><div class="ic">基</div><div><h4>東京の未来戦略と、アジアの企業家が果たす役割</h4><p>東京都副知事 宮坂 学氏（予定）による基調講演。世界から選ばれる都市の政策、官民連携、アジア企業家・在日華僑華人経済界への期待を伺います。</p></div></div>
+      <div class="theme-card reveal left d1"><div class="ic">AI</div><div><h4>AI・ロボット特別プログラム</h4><p>「AI・ロボティクスがつなぐ日本ビジネスの未来」。実演・体験を通じ、技術紹介に留まらず参加者が具体的な「ビジネス発見」に結びつけられる場を提供します。</p></div></div>
+      <div class="theme-card reveal left d1"><div class="ic">①</div><div><h4>富裕層インバウンド</h4><p>「体験で稼ぐインバウンド戦略 — 地域と共生する高付加価値市場の創出」。訪日客数の量の拡大から、収益・体験価値の最大化への転換を目指します。</p></div></div>
+      <div class="theme-card reveal left d2"><div class="ic">②</div><div><h4>起業家精神</h4><p>中国・アジアの新興企業も視野に、AI、製造、ディープテック、ロボティクス、金融AI、観光DX等の挑戦を紹介。投資家・企業・自治体との事業連携に繋げます。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- プログラム -->
+<section id="program" class="alt">
+  <div class="wrap">
+    <div class="reveal"><div class="eyebrow">PROGRAM</div></div>
+    <h2 class="sec-ttl reveal d1"><span class="g">プログラム</span>（予定）</h2>
+    <div class="sec-sub reveal d1">2026年9月10日（木）</div>
+    <div class="timeline">
+      <div class="tl-item reveal"><span class="tl-time">13:00–13:35</span><span class="tl-kind">開会・基調講演</span><div class="tl-body">会長ご挨拶／基調講演：東京の未来戦略と、アジアの企業家が果たす役割</div><div class="tl-sp">宮坂 学 東京都副知事（予定）</div></div>
+      <div class="tl-item reveal"><span class="tl-time">13:45–15:45</span><span class="tl-kind">分科会①</span><div class="tl-body">AI・ロボット：AI・ロボティクスがつなぐ日本ビジネスの未来</div><div class="tl-sp">AI・ロボティクス分野の専門家、企業代表者 等</div></div>
+      <div class="tl-item reveal"><span class="tl-time">16:00–17:30</span><span class="tl-kind">分科会②</span><span class="tl-parallel-badge">2会場 同時開催</span>
+        <div class="tl-parallel">
+          <div class="tl-track"><div class="tl-room">会場A</div><div class="tl-body">富裕層インバウンド：体験で稼ぐインバウンド戦略</div><div class="tl-sp">登壇候補：JTBグループ、地方百貨店、文化施設 等</div></div>
+          <div class="tl-track"><div class="tl-room">会場B</div><div class="tl-body">起業家精神：B Dash Ventures 連携セッション（仮）</div><div class="tl-sp">B Dash Ventures 関係者、VC、スタートアップ企業 等</div></div>
+        </div>
+      </div>
+      <div class="tl-item reveal"><span class="tl-time">18:00–20:00</span><span class="tl-kind">懇親会</span><div class="tl-body">立食形式での交流・ネットワーキング</div></div>
+    </div>
+    <p class="note reveal">※ 時間・登壇者・内容は予定です。確定次第、改めてご案内いたします。</p>
+  </div>
+</section>
+
+<!-- 概要 -->
+<section id="overview">
+  <div class="wrap">
+    <div class="reveal"><div class="eyebrow">OUTLINE</div></div>
+    <h2 class="sec-ttl reveal d1">開催<span class="g">概要</span></h2>
+    <div class="sec-sub reveal d1"></div>
+    <div class="reveal d1">
+    <table class="ov">
+      <tr><th>全体テーマ</th><td>選ばれる日本、挑戦する企業家</td></tr>
+      <tr><th>日時</th><td>2026年9月10日（木）13:00〜20:00（予定）</td></tr>
+      <tr><th>会場</th><td>ザ・プリンス パークタワー東京</td></tr>
+      <tr><th>参加者数</th><td>約300名</td></tr>
+      <tr><th>参加対象</th><td>CCCJ会員企業、日本企業、地方自治体、スタートアップ・VC、有識者、アジア企業関係者</td></tr>
+      <tr><th>主催</th><td>一般社団法人 日本中華總商会</td></tr>
+      <tr><th>共催・後援</th><td>（調整中）</td></tr>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- 協賛 -->
+<section id="sponsor" class="alt">
+  <div class="wrap">
+    <div class="reveal"><div class="eyebrow">SPONSORSHIP</div></div>
+    <h2 class="sec-ttl reveal d1">協賛<span class="g">プラン</span>のご案内</h2>
+    <div class="sec-sub reveal d1">皆様とともに創るCCCJ WEEK 2026</div>
+    <div class="tiers">
+      <div class="tier dia reveal d1"><div class="ribbon">人気</div><div class="cap">DIAMOND</div><h3>ダイヤモンド</h3><div class="price">100<small>万円</small></div>
+        <ul><li>募集社数<b>10社</b></li><li>無料参加枠<b>5名/社</b></li></ul></div>
+      <div class="tier gold reveal d2"><div class="cap">GOLD</div><h3>ゴールド</h3><div class="price">50<small>万円</small></div>
+        <ul><li>募集社数<b>20社</b></li><li>無料参加枠<b>2名/社</b></li></ul></div>
+      <div class="tier sil reveal d3"><div class="cap">SILVER</div><h3>シルバー</h3><div class="price">25<small>万円</small></div>
+        <ul><li>募集社数<b>30社</b></li><li>無料参加枠<b>1名/社</b></li></ul></div>
+    </div>
+
+    <div class="spon-sum reveal d1">
+      <div class="sum-lbl"><div class="k">TOTAL</div><div class="j">3プラン<br>合計規模</div></div>
+      <div class="stats">
+        <div class="stat"><div class="big"><span class="cu" data-to="60">0</span><span>社</span></div><div class="lbl">募集社数（10+20+30）</div></div>
+        <div class="stat"><div class="big"><span class="cu" data-to="120">0</span><span>名</span></div><div class="lbl">協賛ご招待枠（50+40+30）</div></div>
+        <div class="stat"><div class="big">全社<span>掲載</span></div><div class="lbl">ハンドブック（永久保存版）</div></div>
+      </div>
+    </div>
+
+    <h3 style="margin:48px 0 4px;text-align:center;font-size:19px;" class="reveal">特典の詳細比較</h3>
+    <p class="note reveal" style="margin:0 0 18px;">協賛金・募集社数・ご招待枠は上記カードのとおりです。以下は各プランの特典内容です。</p>
+    <div class="reveal d1">
+    <table class="ben">
+      <thead><tr><th>特典項目</th><th>ダイヤモンド</th><th>ゴールド</th><th>シルバー</th></tr></thead>
+      <tbody>
+        <tr><td>大会ハンドブック掲載</td><td>A4 2ページ</td><td>A4 1ページ</td><td>A4 半ページ</td></tr>
+        <tr><td>会場ロゴパネル</td><td>大</td><td>中</td><td>小</td></tr>
+        <tr><td>会場バナー広告</td><td>場内外2か所</td><td>場内1か所</td><td>—</td></tr>
+        <tr><td>スクリーンロゴ放映</td><td>1社ずつ</td><td>5社ずつ</td><td>集約掲載</td></tr>
+        <tr><td>司会より感謝（社名読上）</td><td>○</td><td>○</td><td>○</td></tr>
+        <tr><td>自社宣伝資料の配布</td><td>○</td><td>○</td><td>○</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note reveal">※ 協賛は「金額の多寡」ではなく、皆様とともに本大会をつくる「ホスト」としてのご参加です。ご無理のない範囲でのご協賛を歓迎いたします。</p>
+  </div>
+</section>
+
+<!-- 参加 -->
+<section id="participation">
+  <div class="wrap">
+    <div class="reveal"><div class="eyebrow">PARTICIPATION</div></div>
+    <h2 class="sec-ttl reveal d1">ご<span class="g">参加</span>について</h2>
+    <div class="sec-sub reveal d1">会員の皆様を中心とした、招待制の大会です</div>
+    <div class="part">
+      <div class="card reveal left">
+        <h3>参加費・参加形態</h3>
+        <p class="fee">5,000<small>円（会員）</small></p>
+        <p style="font-size:14.5px;color:#6b6557;margin-top:12px;">本大会は<b>会員および招待者を対象</b>とした大会です（一般公開はいたしません）。会員の皆様にぜひ多数ご参加いただけるよう、ご参加しやすい価格といたしました。</p>
+        <div style="margin-top:18px;"><span class="tag">招待者オンリー</span><span class="tag">会員価格 5,000円</span><span class="tag">立食・一食付</span></div>
+      </div>
+      <div class="card reveal left d1">
+        <h3>参加者300名の内訳（イメージ）</h3>
+        <ul class="breakdown">
+          <li><b>協賛関連</b><span>約120名</span></li>
+          <li><b>会の招待客</b><span>20〜30名</span></li>
+          <li><b>会員参加者（5,000円）</b><span>約150名</span></li>
+          <li><b>合計</b><span>約300名</span></li>
+        </ul>
+        <p class="note" style="text-align:left;margin-top:14px;">※ 協賛各社のご招待枠（計120名）を確保のうえ会員枠を設けております。お早めのお申込みをおすすめいたします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta" id="apply">
+  <div class="blob c1"></div><div class="blob c2"></div>
+  <h2 class="reveal">協賛・ご参加のお申込み</h2>
+  <p class="reveal d1">下記フォームに必要事項をご記入のうえ送信ください。事務局より折り返しご連絡いたします。</p>
+
+  <form class="appform reveal d1" id="sponsorForm" novalidate>
+    <div class="fld" data-field="company">
+      <label>御社名 <span class="req">必須</span></label>
+      <input type="text" name="company" autocomplete="organization" placeholder="株式会社〇〇">
+      <div class="err">御社名をご入力ください。</div>
+    </div>
+
+    <div class="fld" data-field="contact">
+      <label>ご担当者名 <span class="req">必須</span></label>
+      <input type="text" name="contact" autocomplete="name" placeholder="山田 太郎">
+      <div class="err">ご担当者名をご入力ください。</div>
+    </div>
+
+    <div class="fld" data-field="email">
+      <label>メールアドレス <span class="req">必須</span></label>
+      <input type="email" name="email" autocomplete="email" placeholder="taro@example.com">
+      <div class="err">正しいメールアドレスをご入力ください。</div>
+    </div>
+
+    <div class="fld" data-field="plan">
+      <label>ご希望の協賛プラン <span class="req">必須</span></label>
+      <div class="plans">
+        <label class="plan"><input type="radio" name="plan" value="ダイアモンド 100万円"><span class="pname">ダイヤモンド</span><span class="pprice">100万円</span></label>
+        <label class="plan"><input type="radio" name="plan" value="ゴールド 50万円"><span class="pname">ゴールド</span><span class="pprice">50万円</span></label>
+        <label class="plan"><input type="radio" name="plan" value="シルバー 25万円"><span class="pname">シルバー</span><span class="pprice">25万円</span></label>
+      </div>
+      <div class="err">協賛プランをお選びください。</div>
+    </div>
+
+    <div class="fld" data-field="invoice">
+      <label>請求書送付先（メールアドレス） <span class="req">必須</span></label>
+      <input type="email" name="invoice" autocomplete="email" placeholder="invoice@example.com">
+      <div class="err">正しい請求書送付先メールアドレスをご入力ください。</div>
+    </div>
+
+    <div class="fld" data-field="message">
+      <label>ご質問・ご要望（任意）</label>
+      <textarea name="message" placeholder="ご不明点やご要望がございましたらご記入ください。"></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn" id="submitBtn">協賛を申し込む <span class="arw">→</span></button>
+    </div>
+
+    <p class="alt">フォームが送信できない場合は <a href="mailto:info@cccj.jp?subject=【CCCJ WEEK協賛申込について】">info@cccj.jp</a> までご連絡ください。</p>
+  </form>
+
+  <div class="form-done" id="formDone" style="display:none;">
+    <div class="chk">✓</div>
+    <h3>お申し込みを受け付けました</h3>
+    <p>ご協賛のお申し込みありがとうございます。<br>事務局より折り返しご連絡いたします。</p>
+  </div>
+</div>
+
+<footer>
+  <img class="logo" src="assets/cccj_logo.png" alt="一般社団法人 日本中華總商會">
+  <div class="disc">© 2026 CCCJ WEEK 実行委員会 ／ 本ページの内容は予定であり、確定次第更新いたします。</div>
+</footer>
+
+<script>
+// scroll progress + nav
+const prog=document.getElementById('progress'), nav=document.getElementById('nav'), heroBg=document.getElementById('heroBg');
+function onScroll(){
+  const h=document.documentElement, sc=h.scrollTop, max=h.scrollHeight-h.clientHeight;
+  prog.style.width=(max>0?sc/max*100:0)+'%';
+  nav.classList.toggle('solid', sc>80);
+  if(heroBg) heroBg.style.transform='translateY('+(sc*0.35)+'px) scale(1.05)';
+}
+document.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+// reveal on view
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// count-up
+function countUp(el){
+  const to=+el.dataset.to, dur=1400, t0=performance.now();
+  function step(t){const p=Math.min((t-t0)/dur,1); const e=1-Math.pow(1-p,3); el.textContent=Math.round(to*e); if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+const cio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target);}});},{threshold:.6});
+document.querySelectorAll('.cu').forEach(el=>cio.observe(el));
+
+// ===== Google フォーム連携（iframeなし・no-corsで直接送信） =====
+const GOOGLE_FORM = {
+  action: 'https://docs.google.com/forms/d/e/1FAIpQLSdVy5b5HYkmovXTD8cvPXtWutC-YrwwroHNBWVzGs2oTCOrEA/formResponse',
+  fields: {
+    company: 'entry.1623691565',
+    contact: 'entry.2035507863',
+    plan:    'entry.690512557',
+    invoice: 'entry.1016378000',
+    message: 'entry.1264531496',
+  },
+};
+
+const form = document.getElementById('sponsorForm');
+if(form){
+  // ラジオ選択のハイライト
+  form.querySelectorAll('input[name="plan"]').forEach(r=>{
+    r.addEventListener('change',()=>{
+      form.querySelectorAll('.plan').forEach(p=>p.classList.remove('sel'));
+      if(r.checked) r.closest('.plan').classList.add('sel');
+    });
+  });
+  // 入力で該当フィールドのエラー解除
+  form.querySelectorAll('input,textarea').forEach(el=>{
+    el.addEventListener('input',()=>el.closest('.fld').classList.remove('invalid'));
+    el.addEventListener('change',()=>el.closest('.fld').classList.remove('invalid'));
+  });
+
+  const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  function validate(){
+    let ok = true;
+    const mark = (name,bad)=>{ const f=form.querySelector('[data-field="'+name+'"]'); if(f){f.classList.toggle('invalid',bad); if(bad&&ok){f.scrollIntoView({behavior:'smooth',block:'center'});} if(bad)ok=false;} };
+    mark('company', !form.company.value.trim());
+    mark('contact', !form.contact.value.trim());
+    mark('email', !isEmail(form.email.value.trim()));
+    mark('plan', !form.querySelector('input[name="plan"]:checked'));
+    mark('invoice', !isEmail(form.invoice.value.trim()));
+    return ok;
+  }
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    if(!validate()) return;
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.innerHTML = '送信中…';
+
+    const body = new URLSearchParams();
+    // メール収集（回答者が入力モード）: emailAddress を送らないと回答が記録されない
+    body.append('emailAddress', form.email.value.trim());
+    body.append(GOOGLE_FORM.fields.company, form.company.value.trim());
+    body.append(GOOGLE_FORM.fields.contact, form.contact.value.trim());
+    body.append(GOOGLE_FORM.fields.plan, form.querySelector('input[name="plan"]:checked').value);
+    body.append(GOOGLE_FORM.fields.invoice, form.invoice.value.trim());
+    if(form.message.value.trim()) body.append(GOOGLE_FORM.fields.message, form.message.value.trim());
+
+    try{
+      // Google フォームは CORS ヘッダを返さないため no-cors（レスポンスは読めない）
+      await fetch(GOOGLE_FORM.action, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body: body.toString(),
+      });
+      form.style.display='none';
+      document.getElementById('formDone').style.display='block';
+    }catch(err){
+      btn.disabled=false; btn.innerHTML='協賛を申し込む <span class="arw">→</span>';
+      alert('送信に失敗しました。お手数ですが info@cccj.jp までご連絡ください。');
+    }
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+.env
+.env.*
+.DS_Store
+.playwright-mcp/
+MD/
+参考資料/
+CCCJ_WEEK_2026_お知らせ.html
+CCCJ_WEEK_2026_お知らせ_アニメ版.html
